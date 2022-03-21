@@ -24,7 +24,7 @@ jobs:
           
       - name: Create Pull Request
         run: |
-          [ $LIST = "[]" ] && gh pr create --title="Backmerge $(date -u)" --body="" --base="staging" --head="master"
+          [ $PR_LIST = "[]" ] && gh pr create --title="Backmerge $(date -u)" --body="" --base="staging" --head="master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_LIST: ${{ steps.check.outputs.pr_list }}
