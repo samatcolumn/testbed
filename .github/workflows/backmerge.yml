@@ -16,7 +16,7 @@ jobs:
       - name: Check for Pull Request
         id: check
         run: |
-          PR_LIST=$(gh pr list --base="staging" --head="master" --state="open" --json="number)
+          PR_LIST=$(gh pr list --base="staging" --head="master" --state="open" --json="number")
           echo $PR_LIST
           echo "::set-output name=pr_list::$PR_LIST"
         env:
