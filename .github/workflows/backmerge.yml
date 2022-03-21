@@ -12,9 +12,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Check for Pull Request
+        id: check
+        run: |
+          PR_LIST=$(gh pr list --base="staging" --head="master" --state="open" --json="number)
+          echo $PR_LIST
+          echo "::set-output name=pr_list::$PR_LIST"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Create Pull Request
         run: |
-          gh pr create --title="Backmerge $(date -u)" --body="" --base="staging" --head="master"
+          [ $LIST = "[]" ] && gh pr create --title="Backmerge $(date -u)" --body="" --base="staging" --head="master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_LIST: ${{ steps.check.outputs.pr_list }}
