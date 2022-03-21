@@ -1,0 +1,25 @@
+name: Backmerge master --> staging
+
+on:
+  push:
+    branches: [ master ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  backmerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Timestamp
+        run: date -u > latest-backmerge.txt
+          
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          # TODO: Reviewers
+          title: "Backmerge 'master' to 'staging'"
+          commit-message: "Backmerge 'master' to 'staging'"
+          base: "staging"
