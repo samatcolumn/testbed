@@ -1,3 +1,6 @@
 * @samatcolumn
 
 foo/ @hatboysam
+foo/baz/ @hatboysam-test
+
+bar/ @hatboysam-test
