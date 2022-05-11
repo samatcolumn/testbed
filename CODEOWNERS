@@ -1,6 +1,6 @@
-* @samatcolumn
+README.md   @samatcolumn
 
-foo/ @hatboysam
-foo/baz/ @hatboysam-test
+foo/        @hatboysam
+foo/baz/    @hatboysam-test
 
-bar/ @hatboysam-test
+bar/        @hatboysam-test
