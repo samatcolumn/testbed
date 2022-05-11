@@ -1,1 +1,3 @@
 bar/file.txt
+
+Try to update
