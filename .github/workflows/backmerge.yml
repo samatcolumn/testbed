@@ -1,0 +1,35 @@
+name: Backmerge master to staging
+
+on:
+  push:
+    branches: [ master ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  backmerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check for Pull Request
+        id: check
+        run: |
+          PR_LIST=$(gh pr list --base="staging" --head="master" --state="open" --json="number")
+          echo $PR_LIST
+          echo "::set-output name=pr_list::$PR_LIST"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create Pull Request
+        run: |
+          if [ $PR_LIST = "[]" ]
+          then
+            gh pr create --title="Backmerge master to staging" --body="" --base="staging" --head="master"
+          else
+            echo "Open PR already exists"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_LIST: ${{ steps.check.outputs.pr_list }}
